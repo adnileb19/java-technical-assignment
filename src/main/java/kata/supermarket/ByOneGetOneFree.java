@@ -42,9 +42,34 @@ public class ByOneGetOneFree implements DiscountScheme {
 		return Collections.unmodifiableMap(this.unitItemInventory);
 	}
 
+	/**
+	 * Calculate the total discount applied on the inventory.
+	 *
+	 */
+	private class DiscountCalculator {
+		private final Map<ItemByUnit, Integer> inventory;
+
+		DiscountCalculator() {
+			this.inventory = inventory();
+		}
+
+		private BigDecimal discount() {
+			BigDecimal totalDiscountPrice = BigDecimal.ZERO;
+			for (ItemByUnit item : this.inventory.keySet()) {
+				int stock = this.inventory.get(item);
+				if (stock > 1) {
+					int noOfRefundedItems = (int) Math.floor(stock / 2);
+					BigDecimal refundPrice = item.price().multiply(new BigDecimal(noOfRefundedItems));
+					totalDiscountPrice = totalDiscountPrice.add(refundPrice);
+				}
+			}
+			return totalDiscountPrice;
+		}
+	}
+
 	@Override
 	public BigDecimal discountPrice() {
-		// TODO Auto-generated method stub
-		return null;
+		DiscountCalculator discountCalculator = new DiscountCalculator();
+		return discountCalculator.discount();
 	}
 }
