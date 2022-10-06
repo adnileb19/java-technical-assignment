@@ -1,15 +1,16 @@
 package kata.supermarket;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ByOneGetOneFree implements DiscountScheme {
 
-	List<ItemByUnit> listOfItems;
+	private final List<ItemByUnit> listOfItems;
 
-	Map<ItemByUnit, Integer> unitItemInventory;
+	private final Map<ItemByUnit, Integer> unitItemInventory;
 
 	ByOneGetOneFree(List<ItemByUnit> listOfItems) {
 		this.listOfItems = listOfItems;
@@ -21,7 +22,7 @@ public class ByOneGetOneFree implements DiscountScheme {
 	 */
 	public void takeInventory() {
 
-		for (ItemByUnit item : listOfItems) {
+		for (ItemByUnit item : this.listOfItems) {
 			if (!this.unitItemInventory.containsKey(item)) {
 				this.unitItemInventory.put(item, 1);
 			} else {
@@ -29,6 +30,16 @@ public class ByOneGetOneFree implements DiscountScheme {
 				this.unitItemInventory.replace(item, currentStock + 1);
 			}
 		}
+	}
+
+	/**
+	 * Create unmodifiable inventory.
+	 * 
+	 * @return Final inventory.
+	 */
+	Map<ItemByUnit, Integer> inventory() {
+		takeInventory();
+		return Collections.unmodifiableMap(this.unitItemInventory);
 	}
 
 	@Override
