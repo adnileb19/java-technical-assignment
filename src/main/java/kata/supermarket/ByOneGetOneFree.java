@@ -67,6 +67,9 @@ public class ByOneGetOneFree implements DiscountScheme {
 		}
 	}
 
+	/**
+	 * Obtain the discount price.
+	 */
 	@Override
 	public BigDecimal discountPrice() {
 		DiscountCalculator discountCalculator = new DiscountCalculator();
