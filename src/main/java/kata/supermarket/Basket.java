@@ -17,6 +17,16 @@ public class Basket {
 		this.items.add(item);
 	}
 
+	public List<ItemByUnit> obtainUnitItemsFromBasket() {
+		List<ItemByUnit> unitOnlyItems = new ArrayList<>();
+		for (Item item : items()) {
+			if (item.getClass().equals(ItemByUnit.class)) {
+				unitOnlyItems.add((ItemByUnit) item);
+			}
+		}
+		return Collections.unmodifiableList(unitOnlyItems);
+	}
+
 	List<Item> items() {
 		return Collections.unmodifiableList(items);
 	}
@@ -44,7 +54,7 @@ public class Basket {
 		 * functionality.
 		 */
 		private BigDecimal discounts() {
-			DiscountScheme byOneGetOneFreeDiscount = new ByOneGetOneFree();
+			DiscountScheme byOneGetOneFreeDiscount = new ByOneGetOneFree(obtainUnitItemsFromBasket());
 			return byOneGetOneFreeDiscount.discountPrice();
 		}
 
