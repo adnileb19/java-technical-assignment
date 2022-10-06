@@ -28,6 +28,20 @@ public class ByOneGetOneFreeTest {
 	}
 
 	/**
+	 * Test discount returns zero if items aren't applicable for discount.
+	 */
+	@Test
+	public void checkZeroIsReturnedIfNoDiscountApplicable() {
+
+		BigDecimal expectedDiscount = BigDecimal.ZERO;
+
+		DiscountScheme byOneGetOneFree = new ByOneGetOneFree(generateListOfUnitItems2());
+		BigDecimal discount = byOneGetOneFree.discountPrice();
+
+		Assert.assertEquals(expectedDiscount, discount);
+	}
+
+	/**
 	 * Generate a list of unit items.
 	 * 
 	 * @return List of unit items.
@@ -41,6 +55,23 @@ public class ByOneGetOneFreeTest {
 		listOfItems.add(packOfCrisps);
 		listOfItems.add(boxOfCereal);
 		listOfItems.add(packOfCrisps);
+
+		return listOfItems;
+	}
+
+	/**
+	 * Generate a list of unit items.
+	 * 
+	 * @return List of unit items.
+	 */
+	public List<ItemByUnit> generateListOfUnitItems2() {
+
+		List<ItemByUnit> listOfItems = new ArrayList<>();
+
+		ItemByUnit packOfCrisps = new ItemByUnit(new Product(new BigDecimal(1.00)));
+		ItemByUnit boxOfCereal = new ItemByUnit(new Product(new BigDecimal(2.35)));
+		listOfItems.add(packOfCrisps);
+		listOfItems.add(boxOfCereal);
 
 		return listOfItems;
 	}
