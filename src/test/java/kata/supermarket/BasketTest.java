@@ -39,7 +39,7 @@ class BasketTest {
 
 	private static Arguments multipleItemsPricedPerUnit() {
 		return Arguments.of("multiple items priced per unit", "2.04",
-				Arrays.asList(aPackOfDigestives(), aPackOfDigestives(), aPintOfMilk()));
+				Arrays.asList(aPackOfDigestives(), aPintOfMilk()));
 	}
 
 	private static Arguments aSingleItemPricedPerUnit() {
