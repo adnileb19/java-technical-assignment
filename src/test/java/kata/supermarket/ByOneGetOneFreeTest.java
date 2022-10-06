@@ -18,8 +18,12 @@ public class ByOneGetOneFreeTest {
 	 */
 	@Test
 	public void correctDiscountIsApplied() {
+
+		BigDecimal expectedDiscount = new BigDecimal(1.00);
+
 		DiscountScheme byOneGetOneFree = new ByOneGetOneFree(generateListOfUnitItems());
 		BigDecimal discount = byOneGetOneFree.discountPrice();
+
 		Assert.assertEquals(expectedDiscount, discount);
 	}
 
@@ -29,7 +33,9 @@ public class ByOneGetOneFreeTest {
 	 * @return List of unit items.
 	 */
 	public List<ItemByUnit> generateListOfUnitItems() {
+
 		List<ItemByUnit> listOfItems = new ArrayList<>();
+
 		ItemByUnit packOfCrisps = new ItemByUnit(new Product(new BigDecimal(1.00)));
 		ItemByUnit boxOfCereal = new ItemByUnit(new Product(new BigDecimal(2.35)));
 		listOfItems.add(packOfCrisps);
